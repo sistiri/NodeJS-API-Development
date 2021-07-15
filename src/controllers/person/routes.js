@@ -55,9 +55,9 @@ controller.post('/', (req, res, next) => {
 
 // Update a person.
 
-controller.put('/:id', (req, res, next) => {
+controller.put('/:id', async (req, res, next) => {
   const id = req.params.id;
-  const index = data.findIndex(p => p.id === Number(id));
+  // const index = data.findIndex(p => p.id === Number(id));
   const { first_name, last_name, email } = req.body;
   if (!last_name || !first_name || !email) {
     return next(
@@ -65,25 +65,41 @@ controller.put('/:id', (req, res, next) => {
     );
   }
 
-  data[index] = {
-    id,
-    first_name,
-    last_name,
-    email
+  const update = {
+    firstName: first_name,
+    lastName: last_name,
+    email: email
   };
-
-
-  res.json(data[index]);
+  let person = {};
+  try {
+    person = await Person.findByIdAndUpdate(id, update, {
+      new: true,
+      useFindAndModify: false
+    });
+  } catch (error) {
+    return next( new createError.BadRequest(err) );
+  }
+  return res.json(person);
+    
+  // data[index] = {
+  //   id,
+  //   first_name,
+  //   last_name,
+  //   email
+  // };
+  // res.json(data[index]);
 });
 
 // Delete a person.
 
-controller.delete('/:id', (req, res, next) => {
-  const index = data.findIndex(p => p.id === Number(req.params.id));
-  if (index === -1) {
+controller.delete('/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const person = await Person.findByIdAndDelete(id);
+    
+  } catch (error) {
     return next(new createError.NotFound("Person is not found"));
   }
-  data.splice(index, 1);
   res.json({});
 });
 
