@@ -1,0 +1,7 @@
+{
+  "database": {
+    "username": "NodeAdminUser",
+    "password": "MongoDBAtlasAdmin",
+    "host": "cluster0.tgvgo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  }
+}
