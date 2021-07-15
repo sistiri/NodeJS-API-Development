@@ -1,20 +1,30 @@
 const express = require('express');
 const data = require('./data');
 const createError = require('http-errors');
+const logger = require('../../config/logger');
 const Person = require('../../models/person.model');
 
 const controller = express.Router();
 
 // Get data.
 
-controller.get('/', (req, res) => {
-   res.json(data);
+// controller.get('/', (req, res) => {
+//   Person.find()
+//     .then(people => {
+//       logger.debug(`Get all people, returning ${people.lentgh} items.`)
+//       res.json(people);
+//   })
+// });
+controller.get('/', async (req, res) => {
+  const people = await Person.find();
+  await logger.debug(`Get all people, returning ${people.length} items.`)
+  res.json(people);
 });
 
 // Get one person.
 
-controller.get('/:id', (req, res, next) => {
-  const person = data.find(p => p.id === Number(req.params.id));
+controller.get('/:id', async (req, res, next) => {
+  const person = await Person.findById(req.params.id);
   if (!person) {
     return next(new createError.NotFound("Person is not found"));
   }
@@ -35,7 +45,7 @@ controller.post('/', (req, res, next) => {
     lastName: last_name,
     email: email
   });
- 
+
   newPerson.save()
     .then(data => {
       res.status(201);
