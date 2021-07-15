@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,11 +7,11 @@ const logger = require('./config/logger')
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Database connection
 mongoose
-  .connect('mongodb+srv://NodeAdminUser:MongoDBAtlasAdmin@cluster0.tgvgo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+  .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
