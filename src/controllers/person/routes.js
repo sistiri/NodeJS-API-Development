@@ -1,6 +1,7 @@
 const express = require('express');
 const data = require('./data');
 const createError = require('http-errors');
+const Person = require('../../models/person.model');
 
 const controller = express.Router();
 
@@ -29,12 +30,17 @@ controller.post('/', (req, res, next) => {
       new createError.BadRequest("Missing properties!")
     );
   }
-  const newPerson = req.body;
-  newPerson.id = data[data.length - 1].id + 1;
-  data.push(newPerson);
-
-  res.status(201);
-  res.json(newPerson);
+  const newPerson = new Person({
+    firstName: first_name,
+    lastName: last_name,
+    email: email
+  });
+ 
+  newPerson.save()
+    .then(data => {
+      res.status(201);
+      res.json(data);
+    })
 });
 
 // Update a person.
