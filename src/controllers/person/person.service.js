@@ -1,6 +1,6 @@
 const Person = require('../../models/person.model');
 
-export.create = personData => {
+exports.create = personData => {
   const person = new Person(personData);
   return person.save
 }
