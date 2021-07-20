@@ -3,5 +3,10 @@
     "username": "NodeAdminUser",
     "password": "MongoDBAtlasAdmin",
     "host": "cluster0.tgvgo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  },
+  "testDatabase": {
+    "username": "NodeAdminUser",
+    "password": "MongoDBAtlasAdmin",
+    "host": "cluster0.tgvgo.mongodb.net/JestDB?retryWrites=true&w=majority"
   }
 }
