@@ -32,5 +32,32 @@ describe("person controller", () => {
     "first_name": "Lawrence",
     "last_name": "Tearle",
     "email": "ltearle4@infoseek.co.jp"
-  }];
+    }];
+  
+   
+    let response;
+
+    const nextFunction = jest.fn();
+  
+    beforeEach(() => {
+      personService.__setMockData(mockData);
+      response = mockResponse();
+    });
+  
+    test('find one with valid id', () => {
+      const PERSON_ID = 1;
+      const request = mockRequest({
+        params: {
+          id: PERSON_ID
+        }
+      });
+      return personController.findOne(request, response, nextFunction)
+        .then(() => {
+          expect(personService.findOne).toBeCalledWith(PERSON_ID);
+          expect(response.json).toBeCalledWith(
+            mockData.find(p => p.id === PERSON_ID)
+          );
+        });
+    });
+  
 });
