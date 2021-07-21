@@ -22,3 +22,16 @@ exports.create = (req, res, next) => {
     .catch(err => next(new createError.BadRequest(err.message)));
 };
 
+
+exports.findOne = (req, res, next) => {
+  return postService.findOne(req.params.id)
+    .then(post => {
+      if (!post) {
+        return next(new createError.BadRequest('Post is not found!'));
+      }
+      res.json(post);
+    })
+    .catch(err => {
+      return next(new createError.InternalServerError(err.message));
+    });
+};
