@@ -26,6 +26,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 app.use('/person', require('./controllers/person/person.routes'));
+app.use('/post', require('./controllers/post/post.routes'));
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode);

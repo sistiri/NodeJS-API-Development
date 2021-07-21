@@ -2,7 +2,7 @@ const Person = require('../../models/person.model');
 
 exports.create = personData => {
   const person = new Person(personData);
-  return person.save
+  return person.save();
 }
 
 exports.findAll = () => Person.find();
