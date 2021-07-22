@@ -138,4 +138,7 @@ dist
 .history
 .ionide
 
+# Docker
+data
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node
