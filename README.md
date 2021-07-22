@@ -125,6 +125,7 @@ headers: {
 body: JSON.stringify({token: rt})
 }).then( r => r.json())
 .then( d => console.log(d) )
+<<<<<<< HEAD
 ```
 Logout: 
 ```
@@ -136,4 +137,4 @@ headers: {
 body: JSON.stringify({token: rt})
 }).then( r => r.json())
 .then( d => console.log(d) )
-```
+
